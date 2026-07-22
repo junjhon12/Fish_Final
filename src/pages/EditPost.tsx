@@ -6,6 +6,7 @@ interface Post {
   title: string;
   content?: string;
   imageUrl?: string;
+  flag?: string;
   createdAt: string;
   upvotes: number;
 }
@@ -15,6 +16,7 @@ const EditPost = () => {
   const navigate = useNavigate();
   
   const [title, setTitle] = useState('');
+  const [flag, setFlag] = useState('');
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
@@ -25,6 +27,7 @@ const EditPost = () => {
       const post = posts.find((p) => p.id === id);
       if (post) {
         setTitle(post.title);
+        setFlag(post.flag || '');
         setContent(post.content || '');
         setImageUrl(post.imageUrl || '');
       }
@@ -41,6 +44,7 @@ const EditPost = () => {
         posts[postIndex] = {
           ...posts[postIndex],
           title,
+          flag,
           content,
           imageUrl
         };
@@ -84,6 +88,21 @@ const EditPost = () => {
             onChange={(e) => setTitle(e.target.value)}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
+        </div>
+
+        <div>
+          <label htmlFor="flag" className="block text-gray-700 font-semibold mb-2">Catch Category (Flag)</label>
+          <select
+            id="flag"
+            value={flag}
+            onChange={(e) => setFlag(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+          >
+            <option value="">None</option>
+            <option value="Saltwater">Saltwater</option>
+            <option value="Freshwater">Freshwater</option>
+            <option value="Question">Question</option>
+          </select>
         </div>
 
         <div>

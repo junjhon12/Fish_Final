@@ -8,6 +8,7 @@ interface Post {
   title: string;
   content?: string;
   imageUrl?: string;
+  flag?: string;
   createdAt: string;
   upvotes: number;
 }
@@ -34,7 +35,14 @@ const PostDetail = () => {
   return (
     <div className="max-w-3xl mx-auto mt-8 bg-white p-8 rounded-lg shadow-md border border-gray-200">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <h1 className="text-3xl font-bold text-gray-900">{post.title}</h1>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">{post.title}</h1>
+          {post.flag && (
+            <span className="mt-2 inline-block bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-md font-medium">
+              {post.flag}
+            </span>
+          )}
+        </div>
         <Link 
           to={`/edit/${id}`}
           className="bg-yellow-500 text-white px-4 py-2 rounded font-semibold hover:bg-yellow-600 transition-colors whitespace-nowrap"

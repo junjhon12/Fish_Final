@@ -7,6 +7,7 @@ const CreatePost = () => {
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [flag, setFlag] = useState('');
+  const [referenceId, setReferenceId] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ const CreatePost = () => {
       content,
       imageUrl,
       flag,
+      referenceId: referenceId.trim(),
       createdAt: new Date().toISOString(),
       upvotes: 0
     };
@@ -67,6 +69,19 @@ const CreatePost = () => {
             <option value="Freshwater">Freshwater</option>
             <option value="Question">Question</option>
           </select>
+        </div>
+
+        <div>
+          <label htmlFor="referenceId" className="block text-gray-700 font-semibold mb-2">Reference Past Catch (Post ID)</label>
+          <input
+            id="referenceId"
+            type="text"
+            value={referenceId}
+            onChange={(e) => setReferenceId(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 bg-gray-50"
+            placeholder="e.g., 170940582..."
+          />
+          <p className="text-sm text-gray-500 mt-1">Paste the ID of a previous catch to link them in a thread.</p>
         </div>
 
         <div>

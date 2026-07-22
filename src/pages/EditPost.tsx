@@ -7,6 +7,7 @@ interface Post {
   content?: string;
   imageUrl?: string;
   flag?: string;
+  referenceId?: string;
   createdAt: string;
   upvotes: number;
 }
@@ -17,6 +18,7 @@ const EditPost = () => {
   
   const [title, setTitle] = useState('');
   const [flag, setFlag] = useState('');
+  const [referenceId, setReferenceId] = useState('');
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
@@ -28,6 +30,7 @@ const EditPost = () => {
       if (post) {
         setTitle(post.title);
         setFlag(post.flag || '');
+        setReferenceId(post.referenceId || '');
         setContent(post.content || '');
         setImageUrl(post.imageUrl || '');
       }
@@ -45,6 +48,7 @@ const EditPost = () => {
           ...posts[postIndex],
           title,
           flag,
+          referenceId: referenceId.trim(),
           content,
           imageUrl
         };
@@ -103,6 +107,17 @@ const EditPost = () => {
             <option value="Freshwater">Freshwater</option>
             <option value="Question">Question</option>
           </select>
+        </div>
+
+        <div>
+          <label htmlFor="referenceId" className="block text-gray-700 font-semibold mb-2">Reference Past Catch (Post ID)</label>
+          <input
+            id="referenceId"
+            type="text"
+            value={referenceId}
+            onChange={(e) => setReferenceId(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 bg-gray-50"
+          />
         </div>
 
         <div>

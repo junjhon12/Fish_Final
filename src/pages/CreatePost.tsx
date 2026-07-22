@@ -6,7 +6,6 @@ const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [flag, setFlag] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,7 +15,6 @@ const CreatePost = () => {
       title,
       content,
       imageUrl,
-      flag,
       createdAt: new Date().toISOString(),
       upvotes: 0
     };
@@ -27,9 +25,9 @@ const CreatePost = () => {
       existingPosts = JSON.parse(saved);
     } else {
       existingPosts = [
-        { id: '1', title: 'Massive Largemouth Bass', flag: 'Freshwater', createdAt: '2026-07-20T14:30:00Z', upvotes: 12 },
-        { id: '2', title: 'First Saltwater Catch - Red Drum', flag: 'Saltwater', createdAt: '2026-07-21T09:15:00Z', upvotes: 8 },
-        { id: '3', title: 'Small Bluegill', flag: 'Question', createdAt: '2026-07-22T16:00:00Z', upvotes: 2 }
+        { id: '1', title: 'Massive Largemouth Bass', createdAt: '2026-07-20T14:30:00Z', upvotes: 12 },
+        { id: '2', title: 'First Saltwater Catch - Red Drum', createdAt: '2026-07-21T09:15:00Z', upvotes: 8 },
+        { id: '3', title: 'Small Bluegill', createdAt: '2026-07-22T16:00:00Z', upvotes: 2 }
       ];
     }
 
@@ -52,21 +50,6 @@ const CreatePost = () => {
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
             placeholder="e.g., Massive Largemouth Bass"
           />
-        </div>
-
-        <div>
-          <label htmlFor="flag" className="block text-gray-700 font-semibold mb-2">Catch Category (Flag)</label>
-          <select
-            id="flag"
-            value={flag}
-            onChange={(e) => setFlag(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
-          >
-            <option value="">None</option>
-            <option value="Saltwater">Saltwater</option>
-            <option value="Freshwater">Freshwater</option>
-            <option value="Question">Question</option>
-          </select>
         </div>
 
         <div>

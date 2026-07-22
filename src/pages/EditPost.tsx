@@ -21,6 +21,7 @@ const EditPost = () => {
   const [referenceId, setReferenceId] = useState('');
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [availablePosts, setAvailablePosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const saved = localStorage.getItem('catchTrackerPosts');
@@ -34,6 +35,7 @@ const EditPost = () => {
         setContent(post.content || '');
         setImageUrl(post.imageUrl || '');
       }
+      setAvailablePosts(posts.filter((p) => p.id !== id));
     }
   }, [id]);
 
@@ -48,7 +50,7 @@ const EditPost = () => {
           ...posts[postIndex],
           title,
           flag,
-          referenceId: referenceId.trim(),
+          referenceId,
           content,
           imageUrl
         };
@@ -110,14 +112,20 @@ const EditPost = () => {
         </div>
 
         <div>
-          <label htmlFor="referenceId" className="block text-gray-700 font-semibold mb-2">Reference Past Catch (Post ID)</label>
-          <input
+          <label htmlFor="referenceId" className="block text-gray-700 font-semibold mb-2">Reference Past Catch (Thread)</label>
+          <select
             id="referenceId"
-            type="text"
             value={referenceId}
             onChange={(e) => setReferenceId(e.target.value)}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 bg-gray-50"
-          />
+          >
+            <option value="">None</option>
+            {availablePosts.map((post) => (
+              <option key={post.id} value={post.id}>
+                {post.title} ({new Date(post.createdAt).toLocaleDateString()})
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>

@@ -1,5 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+interface Post {
+  id: string;
+  title: string;
+  createdAt: string;
+}
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -8,6 +14,20 @@ const CreatePost = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [flag, setFlag] = useState('');
   const [referenceId, setReferenceId] = useState('');
+  const [availablePosts, setAvailablePosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('catchTrackerPosts');
+    if (saved) {
+      setAvailablePosts(JSON.parse(saved));
+    } else {
+      setAvailablePosts([
+        { id: '1', title: 'Massive Largemouth Bass', createdAt: '2026-07-20T14:30:00Z' },
+        { id: '2', title: 'First Saltwater Catch - Red Drum', createdAt: '2026-07-21T09:15:00Z' },
+        { id: '3', title: 'Small Bluegill', createdAt: '2026-07-22T16:00:00Z' }
+      ]);
+    }
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +38,7 @@ const CreatePost = () => {
       content,
       imageUrl,
       flag,
-      referenceId: referenceId.trim(),
+      referenceId,
       createdAt: new Date().toISOString(),
       upvotes: 0
     };
@@ -72,16 +92,21 @@ const CreatePost = () => {
         </div>
 
         <div>
-          <label htmlFor="referenceId" className="block text-gray-700 font-semibold mb-2">Reference Past Catch (Post ID)</label>
-          <input
+          <label htmlFor="referenceId" className="block text-gray-700 font-semibold mb-2">Reference Past Catch (Thread)</label>
+          <select
             id="referenceId"
-            type="text"
             value={referenceId}
             onChange={(e) => setReferenceId(e.target.value)}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 bg-gray-50"
-            placeholder="e.g., 170940582..."
-          />
-          <p className="text-sm text-gray-500 mt-1">Paste the ID of a previous catch to link them in a thread.</p>
+          >
+            <option value="">None</option>
+            {availablePosts.map((post) => (
+              <option key={post.id} value={post.id}>
+                {post.title} ({new Date(post.createdAt).toLocaleDateString()})
+              </option>
+            ))}
+          </select>
+          <p className="text-sm text-gray-500 mt-1">Select a previous catch to link them together in a thread.</p>
         </div>
 
         <div>

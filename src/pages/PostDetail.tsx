@@ -58,7 +58,7 @@ const PostDetail = () => {
       </p>
       
       <div className="border-t border-gray-200 pt-6 mb-6">
-        <UpvoteButton initialUpvotes={post.upvotes} />
+        <UpvoteButton id={post.id} initialUpvotes={post.upvotes} />
       </div>
       
       <CommentSection />

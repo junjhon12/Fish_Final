@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import UpvoteButton from './UpvoteButton';
 
 interface PostCardProps {
   id: string;
@@ -15,13 +16,10 @@ const PostCard = ({ id, title, createdAt, upvotes }: PostCardProps) => {
           {title}
         </Link>
       </div>
-      <div className="flex justify-between items-start">
+      <div className="flex justify-between items-end mt-2">
         <p className="text-gray-500 text-sm">Caught on: {new Date(createdAt).toLocaleDateString()}</p>
-        <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded">
-            👍 {upvotes}
-        </span>
+        <UpvoteButton id={id} initialUpvotes={upvotes} compact={true} />
       </div>
-      
     </div>
   );
 };

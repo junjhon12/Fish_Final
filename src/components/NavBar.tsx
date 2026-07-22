@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 
-const NavBar = () => {
+interface NavBarProps {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  sortOption: string;
+  setSortOption: (option: string) => void;
+}
+
+const NavBar = ({ searchQuery, setSearchQuery, sortOption, setSortOption }: NavBarProps) => {
   return (
     <nav className="bg-blue-600 p-4 text-white shadow-md">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
@@ -12,9 +19,15 @@ const NavBar = () => {
           <input 
             type="text" 
             placeholder="Search catches by title..." 
-            className="px-3 py-2 rounded-md text-white grow focus:outline-none focus:ring-2 focus:ring-blue-300"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="px-3 py-2 rounded-md text-black grow focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
-          <select className="px-3 py-2 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-300">
+          <select 
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="px-3 py-2 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-300"
+          >
             <option value="created_at">Sort by Newest</option>
             <option value="upvotes">Sort by Upvotes</option>
           </select>

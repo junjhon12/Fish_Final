@@ -1,13 +1,38 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePost = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ title, content, imageUrl });
+    
+    const newPost = {
+      id: Date.now().toString(),
+      title,
+      content,
+      imageUrl,
+      createdAt: new Date().toISOString(),
+      upvotes: 0
+    };
+
+    const saved = localStorage.getItem('catchTrackerPosts');
+    let existingPosts = [];
+    if (saved) {
+      existingPosts = JSON.parse(saved);
+    } else {
+      existingPosts = [
+        { id: '1', title: 'Massive Largemouth Bass', createdAt: '2026-07-20T14:30:00Z', upvotes: 12 },
+        { id: '2', title: 'First Saltwater Catch - Red Drum', createdAt: '2026-07-21T09:15:00Z', upvotes: 8 },
+        { id: '3', title: 'Small Bluegill', createdAt: '2026-07-22T16:00:00Z', upvotes: 2 }
+      ];
+    }
+
+    localStorage.setItem('catchTrackerPosts', JSON.stringify([newPost, ...existingPosts]));
+    navigate('/');
   };
 
   return (

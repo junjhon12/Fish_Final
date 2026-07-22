@@ -1,14 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PostCard from '../components/PostCard';
 
-const mockPosts = [
+interface Post {
+  id: string;
+  title: string;
+  content?: string;
+  imageUrl?: string;
+  createdAt: string;
+  upvotes: number;
+}
+
+const mockPosts: Post[] = [
   { id: '1', title: 'Massive Largemouth Bass', createdAt: '2026-07-20T14:30:00Z', upvotes: 12 },
   { id: '2', title: 'First Saltwater Catch - Red Drum', createdAt: '2026-07-21T09:15:00Z', upvotes: 8 },
   { id: '3', title: 'Small Bluegill', createdAt: '2026-07-22T16:00:00Z', upvotes: 2 }
 ];
 
 const HomeFeed = () => {
-  const [posts] = useState(mockPosts);
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('catchTrackerPosts');
+    if (saved) {
+      setPosts(JSON.parse(saved));
+    } else {
+      setPosts(mockPosts);
+      localStorage.setItem('catchTrackerPosts', JSON.stringify(mockPosts));
+    }
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto mt-8">

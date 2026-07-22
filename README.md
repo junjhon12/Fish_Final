@@ -4,7 +4,7 @@ Submitted by: *Quoc Bao Le*
 
 This web app: **Share your catch of the day/**
 
-Time spent: **X** hours spent in total
+Time spent: **8** hours spent in total
 
 ## Required Features
 

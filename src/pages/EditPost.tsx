@@ -1,19 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const EditPost = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-
-  useEffect(() => {
-    setTitle('Massive Largemouth Bass');
-    setContent('Caught this beauty using a plastic worm near the lily pads. Weighed in at just over 6 pounds!');
-    setImageUrl('https://images.unsplash.com/photo-1599818815161-536488ff1ce8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
-  }, [id]);
+  const [title, setTitle] = useState('Massive Largemouth Bass');
+  const [content, setContent] = useState('Caught this beauty using a plastic worm near the lily pads. Weighed in at just over 6 pounds!');
+  const [imageUrl, setImageUrl] = useState('https://images.unsplash.com/photo-1599818815161-536488ff1ce8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
 
   const handleUpdate = (e: React.FormEvent) => {
     e.preventDefault();

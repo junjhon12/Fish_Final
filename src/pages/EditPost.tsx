@@ -1,22 +1,62 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+
+interface Post {
+  id: string;
+  title: string;
+  content?: string;
+  imageUrl?: string;
+  createdAt: string;
+  upvotes: number;
+}
 
 const EditPost = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   
-  const [title, setTitle] = useState('Massive Largemouth Bass');
-  const [content, setContent] = useState('Caught this beauty using a plastic worm near the lily pads. Weighed in at just over 6 pounds!');
-  const [imageUrl, setImageUrl] = useState('https://images.unsplash.com/photo-1599818815161-536488ff1ce8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('catchTrackerPosts');
+    if (saved) {
+      const posts: Post[] = JSON.parse(saved);
+      const post = posts.find((p) => p.id === id);
+      if (post) {
+        setTitle(post.title);
+        setContent(post.content || '');
+        setImageUrl(post.imageUrl || '');
+      }
+    }
+  }, [id]);
 
   const handleUpdate = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ id, title, content, imageUrl, action: 'UPDATE' });
+    const saved = localStorage.getItem('catchTrackerPosts');
+    if (saved) {
+      const posts: Post[] = JSON.parse(saved);
+      const postIndex = posts.findIndex((p) => p.id === id);
+      if (postIndex !== -1) {
+        posts[postIndex] = {
+          ...posts[postIndex],
+          title,
+          content,
+          imageUrl
+        };
+        localStorage.setItem('catchTrackerPosts', JSON.stringify(posts));
+      }
+    }
     navigate(`/post/${id}`);
   };
 
   const handleDelete = () => {
-    console.log({ id, action: 'DELETE' });
+    const saved = localStorage.getItem('catchTrackerPosts');
+    if (saved) {
+      const posts: Post[] = JSON.parse(saved);
+      const updatedPosts = posts.filter((p) => p.id !== id);
+      localStorage.setItem('catchTrackerPosts', JSON.stringify(updatedPosts));
+    }
     navigate('/');
   };
 

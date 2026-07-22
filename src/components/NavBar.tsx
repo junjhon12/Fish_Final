@@ -12,9 +12,9 @@ const NavBar = () => {
           <input 
             type="text" 
             placeholder="Search catches by title..." 
-            className="px-3 py-2 rounded-md text-black grow focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="px-3 py-2 rounded-md text-white grow focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
-          <select className="px-3 py-2 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-300">
+          <select className="px-3 py-2 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-300">
             <option value="created_at">Sort by Newest</option>
             <option value="upvotes">Sort by Upvotes</option>
           </select>

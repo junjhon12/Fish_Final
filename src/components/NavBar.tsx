@@ -21,12 +21,12 @@ const NavBar = ({ searchQuery, setSearchQuery, sortOption, setSortOption }: NavB
             placeholder="Search catches by title..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="px-4 py-3 rounded-md text-black grow focus:outline-none focus:ring-4 focus:ring-blue-300 placeholder-gray-500 font-semibold"
+            className="px-4 py-3 rounded-md text-black grow outline-none ring-4 ring-blue-300 placeholder-gray-500 font-semibold"
           />
           <select 
             value={sortOption}
             onChange={(e) => setSortOption(e.target.value)}
-            className="px-4 py-3 rounded-md text-black focus:outline-none focus:ring-4 focus:ring-blue-300 font-bold bg-white"
+            className="px-4 py-3 rounded-md text-black outline-none ring-4 ring-blue-300 font-bold bg-white"
           >
             <option value="created_at">Sort by Newest</option>
             <option value="upvotes">Sort by Upvotes</option>

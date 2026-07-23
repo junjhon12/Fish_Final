@@ -38,7 +38,7 @@ function App() {
           }`}
         />
       ))}
-      <div className="fixed inset-0 -z-10 bg-blue-800/60" />
+      <div className="fixed inset-0 -z-10 bg-blue-100/5 backdrop-blur-sm" />
 
       <NavBar 
         searchQuery={searchQuery} 
